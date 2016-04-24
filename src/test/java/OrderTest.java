@@ -1,21 +1,26 @@
-import edu.iis.mto.time.ITimeSource;
-import edu.iis.mto.time.OrderExpiredException;
-import edu.iis.mto.time.TimeSourceFactory;
+import edu.iis.mto.time.*;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-/**
- * Created by Kamil on 2016-04-24.
- */
+import static org.mockito.Mockito.when;
+
 public class OrderTest {
     TimeSourceFactory timeSourceFactory;
+    Order order;
     @Before
     public void initialize(){
-        timeSourceFactory = Mockito.
+
+        timeSourceFactory = Mockito.mock(TimeSourceFactory.class);
+        when(timeSourceFactory.create()).thenReturn(new TimeSourceYearAhead());
+        order = new Order();
+
     }
 
     @Test(expected = OrderExpiredException.class)
     public void ShouldThrowException_WhenOrderHasExpired(){
-
+        order.submit();
+        order.confirm();
     }
 }

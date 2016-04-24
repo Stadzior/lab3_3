@@ -12,9 +12,9 @@ public class Order {
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 	private DateTime submitDate;
     private ITimeSource clock;
-	public Order() {
+	public Order(TimeSourceFactory clockFactory) {
 		orderState = State.CREATED;
-        clock = new TimeSourceFactory().create();
+        clock = clockFactory.create();
 	}
 
 	public void addItem(OrderItem item) {
@@ -22,7 +22,6 @@ public class Order {
 
 		items.add(item);
 		orderState = State.CREATED;
-
 	}
 
 	public void submit() {
@@ -30,7 +29,6 @@ public class Order {
 
 		orderState = State.SUBMITTED;
 		submitDate = new DateTime();
-
 	}
 
 	public void confirm() {
@@ -60,7 +58,6 @@ public class Order {
 		throw new OrderStateException("order should be in state "
 				+ allowedStates + " to perform required  operation, but is in "
 				+ orderState);
-
 	}
 
 	public static enum State {

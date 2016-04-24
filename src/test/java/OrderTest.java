@@ -1,5 +1,4 @@
 import edu.iis.mto.time.*;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -14,7 +13,7 @@ public class OrderTest {
 
         timeSourceFactory = Mockito.mock(TimeSourceFactory.class);
         when(timeSourceFactory.create()).thenReturn(new TimeSourceYearAhead());
-        order = new Order();
+        order = new Order(timeSourceFactory);
 
     }
 
